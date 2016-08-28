@@ -1,0 +1,40 @@
+{
+  "name": "express-vash-template",
+  "version": "0.0.1",
+  "description": "Express and Vash template project.",
+  "main": "server.js",
+  "scripts": {
+    "server": "NODE_ENV=dev node server.js & watch 'npm run build' ./src",
+    "build-folder": "rm -rf build && mkdir -p build",
+    "build-images": "cp -r src/images build/ && cp src/favicon.ico build/",
+    "build-js": "mkdir -p build/scripts; browserify -t vashify src/scripts/main.js | ./node_modules/.bin/uglifyjs > build/scripts/bundle.js",
+    "build-css": "mkdir -p build/styles; node-sass src/styles/main.scss --output-style compressed -o build/styles/",
+    "build": "npm run build-folder; npm run build-images; npm run build-js; npm run build-css",
+    "package": "npm run build && rm -f prototyper*.zip && zip -qr prototyper.zip * -x node_modules/\\* -x *DS_Store* -x prototyper*zip",
+    "deploy": "npm run package && ./deploy.sh",
+    "start": "npm run build && node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kevinslodic/express-vash-template.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kevinslodic/express-vash-template/issues"
+  },
+  "homepage": "https://github.com/kevinslodic/express-vash-template#readme",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "vash": "^0.12.1"
+  },
+  "devDependencies": {
+    "node-sass": "^3.8.0",
+    "browserify": "^13.1.0",
+    "vashify": "^1.0.1",
+    "uglifyjs": "^2.4.10",
+    "watch": "^0.19.1"
+  }
+}

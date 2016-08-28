@@ -1,0 +1,13 @@
+main {
+  width: 100%;
+  max-width: 600px;
+  min-height: calc(50% - 100px);
+  margin: 0 auto;
+  padding: 3em;
+  border: $border-standard;
+  background: #fff;
+
+  @include breakpoint(mobile) {
+    width: 90%;
+  }
+}
